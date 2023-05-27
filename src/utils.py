@@ -11,7 +11,10 @@ class DataCleaner:
         self.data.drop(['Crime ID', 'LSOA name', 'Reported by', 'Location', 'LSOA code'], 
                        axis = 1, inplace = True, errors = 'ignore')
         
-        self.data['Month'] = pd.to_datetime(self.data['Month'])
+        if self.data['Month'] is not None:
+            self.data['Month'] = pd.to_datetime(self.data['Month'])
+        
+        # self.data['Month'] = pd.to_datetime(self.data['Month'])
         
         self.data.loc[:, 'Outcome type'] = self.data.loc[:, 'Outcome type'].apply(lambda x: 'prosecuted' if 'charged' in x else 'not-prosecuted')
         
