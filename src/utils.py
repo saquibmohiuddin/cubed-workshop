@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import os
+
 
 
     
@@ -28,6 +30,17 @@ class DataCleaner:
         self.data.drop(['Month'], axis = 1, inplace = True, errors = 'ignore')
         
         return self.data
+    
+    
+
+class load_save_object:
+    def __init__(self) -> None:
+        pass
+    
+    def load_object(f):
+        
+        
+    
     
         
         
