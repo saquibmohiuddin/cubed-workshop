@@ -30,11 +30,7 @@ class DataCleaner:
         self.data.drop(['Month'], axis = 1, inplace = True, errors = 'ignore')
         
         return self.data
-    
-    
-    def prediction_cleaner()
-    
-    
+
 
 class LoadSaveObject:
     def __init__(self) -> None:

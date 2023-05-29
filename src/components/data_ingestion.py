@@ -4,7 +4,7 @@ import os
 from sklearn.model_selection import train_test_split
 
 
-DATA_DIR = 'artifacts/data'
+DATA_DIR = 'artifacts\data'
 
 @dataclass
 class DataIngestionConfig:
@@ -22,15 +22,13 @@ class DataIngestion(DataIngestionConfig):
         # train test splits
         train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
         
-        train_set.to_csv(DataIngestion.train_data_path, index=False)
-        test_set.to_csv(DataIngestion.test_data_path, index=False)
+        train_set.to_csv(DataIngestion.train_data_path, index=False, header=True)
+        test_set.to_csv(DataIngestion.test_data_path, index=False, header=True)
         
         return (DataIngestion.train_data_path, DataIngestion.test_data_path)
         
-        
-        
-        
-    
-# if __name__=='__main__':
-#     ingestion_obj=DataIngestionConfig()
-#     print(ingestion_obj.train_data_path)
+     
+if __name__=='__main__':
+    ingestion=DataIngestion()
+    train_data, test_data=ingestion.initiate_data_ingestion()
+    print(train_data, test_data)

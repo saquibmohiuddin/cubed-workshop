@@ -1,6 +1,7 @@
 # data files
 /data
 /clean_data
+artifacts/data
 
 #analysis files
 *.pbix
@@ -130,6 +131,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+venv-workshop/
 env/
 venv/
 ENV/

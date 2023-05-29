@@ -62,7 +62,7 @@ class DataTransformation(DataTransformationConfig):
         
         
         test_path:str=DataIngestion.test_data_path
-        test_df = pd.read_csv(test_df)
+        test_df = pd.read_csv(test_path)
         
         test_cleaner = DataCleaner(data=test_df)
         test_df_clean = test_cleaner.clean_data_trainer()
@@ -79,6 +79,13 @@ class DataTransformation(DataTransformationConfig):
                                      file_path=DataTransformation.preprocessor_path)
         
         return x_train_arr, x_test_arr
+    
+    
+if __name__=='__main__':
+    transformation_object=DataTransformation()
+    train_arr, test_arr = transformation_object.initiate_features_transformation()
+    print(train_arr, test_arr)
+    
         
         
         
