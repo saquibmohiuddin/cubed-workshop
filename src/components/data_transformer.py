@@ -9,7 +9,7 @@ from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 
 from dataclasses import dataclass
 from src.components.data_ingestion import DataIngestion
-from src.utils import DataCleaner, LoadSaveObject
+from src.utils import DataCleaner, LoadSaveObject, save_object
 
 
 ARTIFACTS_DIR = 'artifacts'
@@ -73,18 +73,21 @@ class DataTransformation(DataTransformationConfig):
         x_train_arr = preprocessor.fit_transform(train_df_clean).toarray()
         x_test_arr = preprocessor.transform(test_df_clean).toarray()
         
-        load_save_object = LoadSaveObject()
+        # load_save_object = LoadSaveObject()
         
-        load_save_object.save_object(file_preprocessor=preprocessor,
-                                     file_path=DataTransformation.preprocessor_path)
+        # load_save_object.save_object(file_path=DataTransformation.preprocessor_path,
+        #                              file_object=preprocessor)
+        
+        save_object(file_path=DataTransformation.preprocessor_path,
+                    file_object=preprocessor)
         
         return x_train_arr, x_test_arr
     
     
-if __name__=='__main__':
-    transformation_object=DataTransformation()
-    train_arr, test_arr = transformation_object.initiate_features_transformation()
-    print(train_arr, test_arr)
+# if __name__=='__main__':
+#     transformation_object=DataTransformation()
+#     train_arr, test_arr = transformation_object.initiate_features_transformation()
+#     print(train_arr, test_arr)
     
         
         

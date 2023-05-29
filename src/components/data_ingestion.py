@@ -2,6 +2,7 @@ import pandas as pd
 from dataclasses import dataclass
 import os
 from sklearn.model_selection import train_test_split
+from src.utils import DataCleaner
 
 
 DATA_DIR = 'artifacts\data'
@@ -18,6 +19,9 @@ class DataIngestion(DataIngestionConfig):
     
     def initiate_data_ingestion(self):
         df = pd.read_csv(DataIngestion.raw_data_path)
+        
+        data_cleaner = DataCleaner(data=df)
+        df = data_cleaner.clean_data_trainer()
         
         # train test splits
         train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)

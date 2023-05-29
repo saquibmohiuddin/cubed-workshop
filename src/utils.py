@@ -33,37 +33,28 @@ class DataCleaner:
 
 
 class LoadSaveObject:
-    def __init__(self) -> None:
-        pass
     
     def load_object(file_path):
         with open(file_path, 'rb') as f:
             return dill.load(f)
         
-    def save_object(file_path, file_preprocessor):
+    def save_object(file_path, file_object):
         dir_path=os.path.dirname(file_path)
         os.makedirs(dir_path, exist_ok=True)
         
         with open(file_path, 'wb') as f:
-            return dill.dump(file_preprocessor, f)
-        
-        
-
-def evaluate_model(x_test, y_test, y_pred):
-    
-        
+            return dill.dump(file_object, f)
         
 
-        
-        
-        
-        
+def save_object(file_path, file_object):
+    dir_path=os.path.dirname(file_path)
+    os.makedirs(dir_path, exist_ok=True)
     
-    
-        
-        
-        
-        
-        
-        
-        
+    with open(file_path, 'wb') as f:
+        return dill.dump(file_object, f)
+
+
+# def evaluate_model(x_test, y_test, y_pred):
+
+# def save_object(file_path, file_preprocessor):
+#     dir_path=
