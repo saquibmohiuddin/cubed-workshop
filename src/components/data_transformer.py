@@ -9,7 +9,7 @@ from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 
 from dataclasses import dataclass
 from src.components.data_ingestion import DataIngestion
-from src.utils import DataCleaner
+from src.utils import DataCleaner, LoadSaveObject
 
 
 ARTIFACTS_DIR = 'artifacts'
@@ -45,9 +45,43 @@ class DataTransformation(DataTransformationConfig):
         preprocessor = ColumnTransformer(
             transformers=[
                 ('categorical_pipeline', categorical_pipeline, categorical_cols),
-                ('numerical_pipeline', numerical_cols, numerical_cols)
+                ('numerical_pipeline', numerical_pipeline, numerical_cols)
             ],
             n_jobs=-1, remainder='passthrough'
         )
+        
+        return preprocessor
+    
+    
+    def initiate_features_transformation(self):
+        train_path:str=DataIngestion.train_data_path
+        train_df=pd.read_csv(train_path)
+        
+        train_cleaner = DataCleaner(data=train_df)
+        train_df_clean = train_cleaner.clean_data_trainer()
+        
+        
+        test_path:str=DataIngestion.test_data_path
+        test_df = pd.read_csv(test_df)
+        
+        test_cleaner = DataCleaner(data=test_df)
+        test_df_clean = test_cleaner.clean_data_trainer()
+        
+        
+        preprocessor = self.get_transformer_object()
+        
+        x_train_arr = preprocessor.fit_transform(train_df_clean).toarray()
+        x_test_arr = preprocessor.transform(test_df_clean).toarray()
+        
+        load_save_object = LoadSaveObject()
+        
+        load_save_object.save_object(file_preprocessor=preprocessor,
+                                     file_path=DataTransformation.preprocessor_path)
+        
+        return x_train_arr, x_test_arr
+        
+        
+        
+        
         
         

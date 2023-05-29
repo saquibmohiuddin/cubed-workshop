@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-import os
-
+import os, dill
+from sklearn.metrics import roc_auc_score, accuracy_score, precision_score, f1_score
 
 
     
@@ -32,12 +32,34 @@ class DataCleaner:
         return self.data
     
     
+    def prediction_cleaner()
+    
+    
 
-class load_save_object:
+class LoadSaveObject:
     def __init__(self) -> None:
         pass
     
-    def load_object(f):
+    def load_object(file_path):
+        with open(file_path, 'rb') as f:
+            return dill.load(f)
+        
+    def save_object(file_path, file_preprocessor):
+        dir_path=os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+        
+        with open(file_path, 'wb') as f:
+            return dill.dump(file_preprocessor, f)
+        
+        
+
+def evaluate_model(x_test, y_test, y_pred):
+    
+        
+        
+
+        
+        
         
         
     
