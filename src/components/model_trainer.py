@@ -60,8 +60,6 @@ class ModelTrainer(ModelTrainerConfig):
         recall_list = []
         f1_list = []
         
-        report = {}
-        
         for model in models.keys():
             
             # fit model
@@ -74,6 +72,37 @@ class ModelTrainer(ModelTrainerConfig):
             
             # evalauting model performance
             accuracy, precision, recall, f1 = evaluate_model(y_test=y_test, y_pred=y_pred)
+            
+            model_list.append(model)
+            accuracy_list.append(accuracy)
+            precision_list.append(precision)
+            recall_list.append(recall)
+            f1_list.append(f1)
+            
+            
+        report = pd.DataFrame(list(zip(model_list, accuracy_list, 
+                                       precision_list, recall_list, f1_list)), 
+                              columns=['model_name', 'accuracy', 'precision', 'recall', 'f1-score']).sort_values(by=['f1-score'], ascending=False)
+        
+        best_model_name = report['model_name'].iloc[0]
+        best_model_score = report['f1-score'].iloc[0]
+        
+        best_model = models[best_model_name]
+        
+        LoadSaveObject().save_object(file_object=best_model,
+                                     file_path=ModelTrainer.model_path)
+        
+        print(f'The best model noted is {best_model_name} with F1-Score {best_model_score}')
+        
+        
+        
+            
+            
+            
+            
+            
+            
+            
             
             
             
