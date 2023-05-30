@@ -5,11 +5,10 @@ import os
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
-from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
+from sklearn.compose import ColumnTransformer
 
 from dataclasses import dataclass
-from src.components.data_ingestion import DataIngestion
-from src.utils import DataCleaner, LoadSaveObject, save_object
+from src.utils import LoadSaveObject
 
 
 ARTIFACTS_DIR = 'artifacts'
@@ -53,41 +52,23 @@ class DataTransformation(DataTransformationConfig):
         return preprocessor
     
     
-    def initiate_features_transformation(self):
-        train_path:str=DataIngestion.train_data_path
-        train_df=pd.read_csv(train_path)
-        
-        train_cleaner = DataCleaner(data=train_df)
-        train_df_clean = train_cleaner.clean_data_trainer()
-        
-        
-        test_path:str=DataIngestion.test_data_path
-        test_df = pd.read_csv(test_path)
-        
-        test_cleaner = DataCleaner(data=test_df)
-        test_df_clean = test_cleaner.clean_data_trainer()
-        
-        
+    def save_preprocessor_object(self):
+
         preprocessor = self.get_transformer_object()
         
-        x_train_arr = preprocessor.fit_transform(train_df_clean).toarray()
-        x_test_arr = preprocessor.transform(test_df_clean).toarray()
+        load_save_object = LoadSaveObject()
         
-        # load_save_object = LoadSaveObject()
+        load_save_object.save_object(file_path=DataTransformation.preprocessor_path,
+                                     file_object=preprocessor)
         
-        # load_save_object.save_object(file_path=DataTransformation.preprocessor_path,
-        #                              file_object=preprocessor)
         
-        save_object(file_path=DataTransformation.preprocessor_path,
-                    file_object=preprocessor)
-        
-        return x_train_arr, x_test_arr
+        return DataTransformation.preprocessor_path
     
     
-# if __name__=='__main__':
-#     transformation_object=DataTransformation()
-#     train_arr, test_arr = transformation_object.initiate_features_transformation()
-#     print(train_arr, test_arr)
+if __name__=='__main__':
+    transformation_object=DataTransformation()
+    preprocessor_path = transformation_object.save_preprocessor_object()
+    print(preprocessor_path)
     
         
         

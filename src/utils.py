@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import os, dill
-from sklearn.metrics import roc_auc_score, accuracy_score, precision_score, f1_score
+from sklearn.metrics import roc_auc_score, accuracy_score, precision_score, f1_score, recall_score
 
 
     
@@ -33,12 +33,11 @@ class DataCleaner:
 
 
 class LoadSaveObject:
-    
-    def load_object(file_path):
+    def load_object(self, file_path):
         with open(file_path, 'rb') as f:
             return dill.load(f)
         
-    def save_object(file_path, file_object):
+    def save_object(self, file_path, file_object):
         dir_path=os.path.dirname(file_path)
         os.makedirs(dir_path, exist_ok=True)
         
@@ -54,7 +53,17 @@ def save_object(file_path, file_object):
         return dill.dump(file_object, f)
 
 
-# def evaluate_model(x_test, y_test, y_pred):
+def evaluate_model(y_test, y_pred):
+    accuracy = accuracy_score(y_true=y_test, y_pred=y_pred)
+    precision = precision_score(y_true=y_test, y_pred=y_pred)
+    recall = recall_score(y_true=y_test, y_pred=y_pred)
+    f1 = f1_score(y_true=y_test, y_pred=y_pred)
+    
+    accuracy, precision, recall, f1 = (np.round(x, 2) for x in (accuracy, precision, recall, f1))
+    
+    return accuracy, precision, recall, f1
 
-# def save_object(file_path, file_preprocessor):
-#     dir_path=
+
+    
+
+
