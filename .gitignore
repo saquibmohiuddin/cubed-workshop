@@ -2,6 +2,7 @@
 /data
 /clean_data
 artifacts/data
+artifacts/
 
 #analysis files
 *.pbix

@@ -39,13 +39,13 @@ class ModelTrainer(ModelTrainerConfig):
         
         return X_train_arr, X_test_arr, y_train, y_test
     
-    def initiate_model_training(self):
+    def initiate_model_training(self, X_train_arr, X_test_arr, y_train, y_test):
         
-        X_train_arr, X_test_arr, y_train, y_test = self.data_features_transformation(
-            preprocessor_path=DataTransformation.preprocessor_path,
-            train_path=DataIngestion.train_data_path,
-            test_path=DataIngestion.test_data_path
-        )
+        # X_train_arr, X_test_arr, y_train, y_test = self.data_features_transformation(
+        #     preprocessor_path=DataTransformation.preprocessor_path,
+        #     train_path=DataIngestion.train_data_path,
+        #     test_path=DataIngestion.test_data_path
+        # )
         
         models = {
             'RandomForestClassifier':RandomForestClassifier(n_jobs=-1),
@@ -92,7 +92,18 @@ class ModelTrainer(ModelTrainerConfig):
         LoadSaveObject().save_object(file_object=best_model,
                                      file_path=ModelTrainer.model_path)
         
-        print(f'The best model noted is {best_model_name} with F1-Score {best_model_score}')
+        return f'The best model noted is {best_model_name} with F1-Score {best_model_score}'
+        
+if __name__=='__main__':
+    model_trainer = ModelTrainer()
+    X_train_arr, X_test_arr, y_train, y_test = model_trainer.data_features_transformation(preprocessor_path=DataTransformation.preprocessor_path,
+                                                                                          train_path=DataIngestion.train_data_path,
+                                                                                          test_path=DataIngestion.test_data_path)
+    
+    score = model_trainer.initiate_model_training(X_train_arr, X_test_arr, y_train, y_test)
+    print(score)
+    
+    
         
         
         
