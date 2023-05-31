@@ -9,6 +9,7 @@ from sklearn.compose import ColumnTransformer
 
 from dataclasses import dataclass
 from src.utils import LoadSaveObject
+from src.components.data_ingestion import DataIngestion
 
 
 ARTIFACTS_DIR = 'artifacts'
@@ -56,6 +57,11 @@ class DataTransformation(DataTransformationConfig):
 
         preprocessor = self.get_transformer_object()
         
+        train_df = pd.read_csv(DataIngestion.train_data_path)
+        X_train = train_df.drop(['Outcome type'], axis = 1)
+        
+        preprocessor.fit_transform(X_train)
+
         load_save_object = LoadSaveObject()
         
         load_save_object.save_object(file_path=DataTransformation.preprocessor_path,
