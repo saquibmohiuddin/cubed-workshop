@@ -23,7 +23,7 @@ class DataTransformation(DataTransformationConfig):
         return super().__init_subclass__()
     
     def get_transformer_object(self):
-        categorical_cols = ['Falls within', 'Crime type']
+        categorical_cols = ['Falls_within', 'Crime_type']
         numerical_cols = ['Longitude', 'Latitude', 'year', 'month']
         
         categorical_pipeline = Pipeline(
@@ -58,7 +58,7 @@ class DataTransformation(DataTransformationConfig):
         preprocessor = self.get_transformer_object()
         
         train_df = pd.read_csv(DataIngestion.train_data_path)
-        X_train = train_df.drop(['Outcome type'], axis = 1)
+        X_train = train_df.drop(['Outcome_type'], axis = 1)
         
         preprocessor.fit_transform(X_train)
 

@@ -18,19 +18,25 @@ class DataCleaner:
         
         if self.data['Month'] is not None:
             self.data['Month'] = pd.to_datetime(self.data['Month'])
+            
+        self.data.rename(columns = {'Falls within':'Falls_within', 
+                                    'Crime type':'Crime_type', 
+                                    'Outcome type':'Outcome_type'}, 
+                         inplace = True, errors = 'ignore')
         
         # self.data['Month'] = pd.to_datetime(self.data['Month'])
         
-        self.data.loc[:, 'Outcome type'] = self.data.loc[:, 'Outcome type'].apply(lambda x: 'prosecuted' if 'charged' in x else 'not-prosecuted')
+        self.data.loc[:, 'Outcome_type'] = self.data.loc[:, 'Outcome_type'].apply(lambda x: 'prosecuted' if 'charged' in x else 'not-prosecuted')
         
         outcome_map = {'not-prosecuted':0, 'prosecuted':1}
         
-        self.data['Outcome type'] = self.data['Outcome type'].map(outcome_map)
+        self.data['Outcome_type'] = self.data['Outcome_type'].map(outcome_map)
         
         self.data['year'] = self.data.loc[:, 'Month'].dt.year
         self.data['month'] = self.data.loc[:, 'Month'].dt.month
         
         self.data.drop(['Month'], axis = 1, inplace = True, errors = 'ignore')
+        
         
         return self.data
 
