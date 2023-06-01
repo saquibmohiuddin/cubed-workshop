@@ -8,6 +8,8 @@ from src.components.data_ingestion import DataIngestion
 import tensorflow as tf
 from tensorflow import keras
 from sklearn.utils import class_weight
+from keras.utils import custom_object_scope
+
 
 from keras.callbacks import EarlyStopping
 from keras.callbacks import ModelCheckpoint
@@ -15,7 +17,7 @@ import datetime, os
 
 from dataclasses import dataclass
 
-keras.utils.custom_objects['f1_metric'] = f1_metric
+# keras.utils.custom_object_scope['f1_metric'] = f1_metric
 
 
 

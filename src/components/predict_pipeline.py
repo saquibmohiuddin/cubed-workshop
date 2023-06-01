@@ -6,12 +6,14 @@ from src.utils import DataCleaner, LoadSaveObject, f1_metric
 from src.components.data_transformer import DataTransformation
 from src.components.data_ingestion import DataIngestion
 from src.components.model_trainer_tensorflow import TFModelTrainer
+from keras.utils import custom_object_scope
+
 
 import tensorflow as tf
 from tensorflow import keras
 
 class PredictPipeline:
-    def __init__(self) -> None:
+    def __init__(self) -> int:
         pass
     
     def predict(self, features):
@@ -21,11 +23,11 @@ class PredictPipeline:
         
         preprocessor = LoadSaveObject().load_object(preprocessor_path)
         
-        classifier = tf.keras.models.load_model('/content/artifacts/my_model.h5', custom_objects={'f1_metric':f1_metric})
+        classifier = tf.keras.models.load_model('artifacts/model/model_tf.h5', custom_objects={'f1_metric':f1_metric})
         
         X_inputs = preprocessor.transform(features)
         
-        result = classifier.predict(X_inputs)
+        result = np.round(classifier.predict(X_inputs))[0][0].astype(int)
         
         return result
         

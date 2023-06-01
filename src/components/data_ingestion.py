@@ -32,7 +32,7 @@ class DataIngestion(DataIngestionConfig):
         return (DataIngestion.train_data_path, DataIngestion.test_data_path)
         
      
-if __name__=='__main__':
-    ingestion=DataIngestion()
-    train_data, test_data=ingestion.initiate_data_ingestion()
-    print(train_data, test_data)
+# if __name__=='__main__':
+#     ingestion=DataIngestion()
+#     train_data, test_data=ingestion.initiate_data_ingestion()
+#     print(train_data, test_data)
