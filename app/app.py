@@ -51,7 +51,7 @@ def main():
     
     with col1:
         try:
-            longitude=st.number_input('Enter longitude: ')
+            longitude=st.number_input('Enter longitude: ', value=-2.36)
         except:
             print('The selection is invalid')
             
@@ -60,7 +60,7 @@ def main():
         
     with col2:
         try:
-            latitude=st.number_input('Enter Latitude: ')
+            latitude=st.number_input('Enter Latitude: ', value=51.38)
         except:
             print('The selection is invalid')
             
