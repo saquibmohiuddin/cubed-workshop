@@ -2,6 +2,15 @@
 /data
 /clean_data
 
+/venv-workshop
+/logs
+/artifacts
+
+*.pkl
+*.h5
+*.csv
+*.pb
+
 #analysis files
 *.pbix
 
