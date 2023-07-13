@@ -73,9 +73,6 @@ def main():
             
     st.map(data=pd.DataFrame(map_data, index=[0]))
         
-
-    
-    
     
     result=''
     
