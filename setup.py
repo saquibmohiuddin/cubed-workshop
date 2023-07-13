@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 
-HYPHEN_E_DOT = 'e .'
+HYPHEN_E_DOT = '-e .'
 
 def get_requirements(file:str)->list[str]:
     """
