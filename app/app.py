@@ -47,6 +47,10 @@ def main():
        'Bicycle theft', 'Other crime', 'Possession of weapons', 'Robbery'
         ])
         
+        date = st.date_input('Enter the date of crime: ', value=datetime.datetime.now())
+        month = date.month
+        year = date.year
+        
     col1, col2=st.columns(2)
     
     with col1:
@@ -54,8 +58,8 @@ def main():
             longitude=st.number_input('Enter longitude: ', value=-2.36)
         except:
             print('The selection is invalid')
-            
-        month = st.number_input('Enter the month of crime: ', min_value = 1, max_value = 12)
+           
+        # month = st.number_input('Enter the month of crime: ', min_value = 1, max_value = 12)
         
         
     with col2:
@@ -64,7 +68,8 @@ def main():
         except:
             print('The selection is invalid')
             
-        year=st.number_input('Enter year of crime ', min_value=2020)
+        # year=st.number_input('Enter year of crime ', min_value=2020)
+        
     
     map_data = {
         'longitude':longitude,
